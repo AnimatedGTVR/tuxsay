@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+rainbow=false
+
+if [ "$1" = "lolcat" ] || [ "$1" = "--lolcat" ] || [ "$1" = "rainbow" ] || [ "$1" = "--rainbow" ]; then
+  rainbow=true
+  shift
+fi
+
 roll=$((RANDOM % 1000))
 
 jokes=(
@@ -176,26 +183,23 @@ say_box() {
   tux
 }
 
-say_cursed() {
-  message="fuck you"
-  output="$(say_box "$message")"
-
-  if command -v lolcat >/dev/null 2>&1; then
-    printf "%s\n" "$output" | lolcat
+print_output() {
+  if [ "$rainbow" = true ] && command -v lolcat >/dev/null 2>&1; then
+    lolcat
   else
-    printf "%s\n" "$output"
+    cat
   fi
 }
 
 if [ "$#" -gt 0 ]; then
-  say_box "$*"
+  say_box "$*" | print_output
   exit 0
 fi
 
 if [ "$roll" -eq 0 ]; then
-  say_cursed
+  say_box "fuck you" | print_output
 else
   all=("${jokes[@]}" "${motivation[@]}")
   message="${all[$((RANDOM % ${#all[@]}))]}"
-  say_box "$message"
+  say_box "$message" | print_output
 fi
