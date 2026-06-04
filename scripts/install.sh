@@ -2,20 +2,19 @@
 
 set -e
 
-PROJECT_NAME="tuxsay"
 INSTALL_DIR="/usr/local/bin"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-TUXSAY_SOURCE="$SCRIPT_DIR/scripts/tuxsay"
-TUXRIVAL_SOURCE="$SCRIPT_DIR/scripts/tuxrival"
+TUXSAY_SOURCE="$SCRIPT_DIR/scripts/tuxsay.sh"
+TUXRIVAL_SOURCE="$SCRIPT_DIR/scripts/tuxrival.sh"
 
 if [ ! -f "$TUXSAY_SOURCE" ]; then
-  echo "Missing scripts/tuxsay"
+  echo "Missing scripts/tuxsay.sh"
   exit 1
 fi
 
 if [ ! -f "$TUXRIVAL_SOURCE" ]; then
-  echo "Missing scripts/tuxrival"
+  echo "Missing scripts/tuxrival.sh"
   exit 1
 fi
 
@@ -32,7 +31,7 @@ sudo chmod +x "$INSTALL_DIR/tuxsay"
 sudo chmod +x "$INSTALL_DIR/tuxrival"
 
 echo
-echo "Installed successfully."
+echo "tuxsay installed successfully."
 echo
 echo "Try:"
 echo "  tuxsay"
